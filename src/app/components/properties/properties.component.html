@@ -1,11 +1,11 @@
 <section id="properties" [hidden]="virtualRouter.routerActive!=='properties'">
     <div class="container">
-        <h2 class="section-title wow fadeInUp" [hidden]="isEditing || global.addingProperty">Galeria imagenes
+        <h2 class="section-title wow fadeInUp" [hidden]="isEditing || global.addingImage">Galeria imagenes
             <span style="color: #FF4C60;" class="icon icon-plus iconB" (click)="add()"></span>
         </h2>
-        <h2 class="section-title wow fadeInUp" [hidden]="!global.addingProperty">Agregar imagenes
+        <h2 class="section-title wow fadeInUp" [hidden]="!global.addingImage">Agregar imagenes
         </h2>
-        <div class="spacer" data-height="60" [hidden]="global.addingProperty || editing"></div>
+        <div class="spacer" data-height="60" [hidden]="global.addingImage || editing"></div>
         <span> </span>
         <!-- <ul class="portfolio-filter list-inline wow fadeInUp" [hidden]="global.editingProperty || global.addingProperty">
             <li [hidden]="global.rubroSelectedBoolean" class="list-inline-item" style="color: #FF4C60;">Todos</li>
@@ -20,15 +20,15 @@
             </li>
         </ul> -->
         <div class="row">
-            <div class="col-md-4 " [hidden]="global.editingProperty || global.addingProperty">
+            <div class="col-md-4 " [hidden]="global.editingImage || global.addingImage">
                 <div class="contact-info">
-                    <h3 class="wow fadeInUp" style="padding-top: 45px;">{{global.propertySelected.title}}
+                    <h3 class="wow fadeInUp" style="padding-top: 45px;">{{global.imageSelected.name}}
                     </h3>
-                    <div class="floating-content" [hidden]="global.propertySelected.files[0]==undefined">
+                    <div class="floating-content" [hidden]="global.imageSelected.images[0]==undefined">
                         <div style="text-align: right;">
                             <span style="font-weight: 1000; font-size: 15px; color: #5e4cff;">
                                 <button type="submit" name="submit" id="submit" value="Submit"
-                                    class="btn btn-outline-dark btn-xs" (click)="edit(global.propertySelected)">
+                                    class="btn btn-outline-dark btn-xs" (click)="edit(global.imageSelected)">
                                     <span class="icon icon-pencil"></span>
                                 </button>
                             </span>
@@ -42,26 +42,26 @@
 
                     </div>
                     <div class="thumb">
-                        <img src="{{global.propertySelected.files[0]}}" alt="" />
+                        <img src="{{global.imageSelected.images[0]}}" alt="" />
                         <div class="mask"></div>
                     </div>
                 </div>
             </div>
-            <div class="row portfolio-wrapper col-md-8" [hidden]="global.editingProperty || global.addingProperty">
-                <div class="col-md-3 col-sm-6 grid-item " *ngFor="let property of global.propertys; let i = index"
+            <div class="row portfolio-wrapper col-md-8" [hidden]="global.editingImage || global.addingImage">
+                <div class="col-md-3 col-sm-6 grid-item " *ngFor="let image of global.imagesCasa; let i = index"
                     style="cursor: pointer;" > 
-                    <a class="" (click)="preview(property)">
+                    <a class="" (click)="preview(image)">
                         <div class="portfolio-item rounded shadow-dark card">
                             <div class="thumb">
-                                <img src="{{property.files[0]}}" alt="" />
+                                <img src="{{image.images[0]}}" alt="" />
                             </div>
-                            <span>{{property.title}}</span>
+                            <span>{{image.name}}</span>
                         </div>
                     </a>
                 </div>
             </div>
             
-            <div class="col-md-12 " [hidden]="!global.editingProperty && !global.addingProperty">
+            <div class="col-md-12 " [hidden]="!global.editingImage && !global.addingImage">
                 <div class="contact-info">
                     <form>
                         <div class="row">
@@ -82,7 +82,7 @@
                                             </div>
                                         </div>
                                         <div  style="display: ruby; margin-top: 20px;padding: 2%;" [hidden]="!global.editingProperty">
-                                            <div class="thumb" *ngFor="let image of data.files" style="margin-right: 5px; margin-bottom:10px; position: relative;" class="image-container"
+                                            <div class="thumb" *ngFor="let image of data.images" style="margin-right: 5px; margin-bottom:10px; position: relative;" class="image-container"
                                                 (mouseenter)="showDeleteButton = true" (mouseleave)="showDeleteButton = false">
                                                 <img src="{{image}}" style="max-width: 150px; border-radius: 10px; border: 1px solid #ccc;" class="image">
                                                 <button *ngIf="showDeleteButton" class="delete-button" (click)="deleteImage(image)" >
@@ -103,7 +103,7 @@
                                         <div class="form-group">
                                             <label for="event-name">Nombre</label>
                                             <input class="form-control" placeholder="nombre del producto" type="text"
-                                                [(ngModel)]="data.title" name="name" required
+                                                [(ngModel)]="data.name" name="name" required
                                                 [ngModelOptions]="{standalone: true}">
                                         </div>
                                     </div>
@@ -216,9 +216,9 @@
                         </div>
                         <div class="popup-box-actions medium void" style="text-align: end; margin-top: 10px;">
                             <button class="btn btn-outline-dark" id="closeButton" (click)="cancelarUpdate()"  style=" margin-right: 10px;">Cancelar</button>
-                            <button [hidden]="global.editingProperty || _butler.uploaderImages[0]==undefined" class="btn btn-default" id="closeButton" (click)="onSubmit()"
+                            <button [hidden]="global.editingImage || _butler.uploaderImages[0]==undefined" class="btn btn-default" id="closeButton" (click)="onSubmit()"
                                 style=" margin-right: 10px;">Guardar</button>
-                            <button [hidden]="global.addingProperty || data.files[0]==undefined" class="btn btn-default" id="closeButton" (click)="updateProperty()"
+                            <button [hidden]="global.addingImage || data.images[0]==undefined" class="btn btn-default" id="closeButton" (click)="updateProperty()"
                                 style=" margin-right: 10px;">Guardar</button>
                         </div>
                     </form>

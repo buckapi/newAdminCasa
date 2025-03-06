@@ -57,14 +57,8 @@ export class PropertiesComponent {
   };
   data = {
     id: "",
-    description: "",
-    files: [] as string[],
-    title: "",
-    price: 0,
-    services: [] as any[],
-    status: "",
-    guests: 0,
-    priceAditional: 0
+    name: "",
+    images: [] as string[]
   };
 
   // adapter = new CustomFilePickerAdapter(this.http, this._butler);
@@ -102,25 +96,13 @@ export class PropertiesComponent {
   add() {
     this.global.propertySelected = {
       id:"",
-      title: "",
-      description: "",
-      price: 0,
-      files: [] as string[],
-      services: [] as any[],
-      status: "",
-      guests: 0,
-      priceAditional: 0
+      name: "",
+      images: [] as string[],
     };
     this.data = {
       id:"",
-      title: "",
-      description: "",
-      price: 0,
-      files: [] as string[],
-      services: [] as any[],
-      status: "",
-      guests: 0,
-      priceAditional: 0
+      name: "",
+      images: [] as string[]
     };
 
     this.global.editingProperty = false;
@@ -155,14 +137,8 @@ export class PropertiesComponent {
     this.global.addingProperty = false;
     this.data = {
       id: "",
-      title: "",
-      description: "",
-      price: 0,
-      files: [] as string[],
-      services: [] as any[],
-      status: "",
-      guests: 0,
-      priceAditional: 0
+      name: "",
+      images: [] as string[]
     };
   }
   
@@ -189,37 +165,31 @@ export class PropertiesComponent {
   }
 
   updateProperty() {
-    this.data.files =
+    this.data.images =
       this._butler.uploaderImages.length > 0
         ? this._butler.uploaderImages
-        : this.global.propertySelected.files;
+        : this.global.imageSelected.images;
 
     this.dataApiService
-      .propertyUpdate(this.data, this.global.propertySelected.id)
+      .galleryUpdate(this.data, this.global.imageSelected.id)
       .subscribe((response) => {
         console.log(response);
-        this.global.loadPropertys();
-        this.global.editingProperty = false;
+        this.global.loadGallery();
+        this.global.editingImage = false;
         this.virtualRouter.routerActive = "clientes";
         this.data = {
           id:"",
-          title: "",
-          description: "",
-          price: 0,
-          files: [] as string[],
-          services: [] as any[],
-          status: "",
-          guests: 0,
-          priceAditional: 0
+          name: "",
+          images: [] as string[]
         };
 
         this._butler.uploaderImages = [];
-        (this.global.addingProperty = false),
-          (this.global.editingProperty = false),
+        (this.global.addingImage = false),
+          (this.global.editingImage = false),
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "Autoparte Actualizada",
+            title: " Actualizada",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -235,45 +205,32 @@ export class PropertiesComponent {
           id: "",
           ref: "",
         };
-        this.global.loadPropertys();
+        this.global.loadGallery();
 
-        this.global.propertySelected = {
+        this.global.imageSelected = {
           id:"",
-          title: "",
-          description: "",
-          price: 0,
-          files: [] as string[],
-          services: [] as any[],
-          status: "",
-          guests: 0,
-          priceAditional: 0
+          name: "",
+          images: [] as string[]
         };
       });
   }
   onSubmit() {
-    this.data.files = this._butler.uploaderImages;
-    this.data.status = "active";
+    this.data.images = this._butler.uploaderImages;
     this.dataApiService.saveImages(this.data).subscribe((response) => {
       console.log(response);
-      this.global.loadPropertys();
+      this.global.loadGallery();
       this._butler.uploaderImages = [];
       this.data = {
         id:"",
-        title: "",
-        description: "",
-        price: 0,
-        files: [] as string[],
-        services: [] as any[],
-        status: "",
-        guests: 0,
-        priceAditional: 0
+        name: "",
+        images: [] as string[],
       };
 
-      this.global.editingProperty = false;
+      this.global.editingImage = false;
       Swal.fire("Bien...", "Autoparte agregada satisfactoriamente!", "success");
-      this.global.editingProperty = false;
-      this.global.addingProperty = false;
-      this.global.loadPropertys();
+      this.global.editingImage = false;
+      this.global.addingImage = false;
+      this.global.loadGallery();
       this.virtualRouter.routerActive = "properties";
     });
     console.log(this.data);
@@ -295,10 +252,11 @@ export class PropertiesComponent {
     });
   }
   getAllProperties() {
-    this.dataApiService.getAllProperties().subscribe((response: any[]) => {
-      this.global.propertysSelected = response;
+    this.dataApiService.getAllImages().subscribe((response: any[]) => {
+      this.global.imagesSelected = response;
     });
   }
+  
   onCategorySelect(category: any) {
     // this.data.category = "c" + category.id;
     console.log(category.id);

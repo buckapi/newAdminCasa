@@ -92,6 +92,10 @@ export class DataApiService {
 		const url_api = this.yeoman.origin.restUrl+'/api/collections/propertys/records';
 		return this.http.get(url_api);
 	}
+	getAllImages() {
+		const url_api = this.yeoman.origin.restUrl+'/api/collections/casaGallery/records';
+		return this.http.get(url_api);
+	}
 	getProduct(id: string){
 		const url_api = this.yeoman.origin.restUrl+`/api/products/${id}`;
 		return this.http.get(url_api);
@@ -141,12 +145,12 @@ export class DataApiService {
 		  map(data => data)
 		);
 	  }
-	  saveProperty(property: PropertyInterface) {
+	  /* saveProperty(property: PropertyInterface) {
 		const url_api = this.yeoman.origin.restUrl + '/api/collections/propertys/records';
 		return this.http.post<PropertyInterface>(url_api, property).pipe(
 		  map(data => data)
 		);
-	  }
+	  } */
 
 	  saveImages(property: PropertyInterface) {
 		const url_api = this.yeoman.origin.restUrl + '/api/collections/imagesCasa/records';
@@ -360,8 +364,16 @@ export class DataApiService {
 		  .pipe(map(data => data));
 	  }
 	
-	propertyUpdate(propertyData: any, id: string): Observable<any> {
+	/* propertyUpdate(propertyData: any, id: string): Observable<any> {
 		const url = `https://db.camiwa.com:8092/api/collections/propertys/records/${id}`;
+	
+		// Realizar la solicitud PATCH para actualizar el registro
+		return this.http.patch(url, propertyData).pipe(
+		  map(response => response)
+		);
+	} */
+	galleryUpdate(propertyData: any, id: string): Observable<any> {
+		const url = `https://db.camiwa.com:8092/api/collections/casaGallery/records/${id}`;
 	
 		// Realizar la solicitud PATCH para actualizar el registro
 		return this.http.patch(url, propertyData).pipe(

@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ImageUploadService {
 
-  private apiUrl = 'https://db.camiwa.com:8092/api/collections/images/records';
+  private apiUrl = 'https://db.camiwa.com:8092/api/collections/imagesCasa/records';
 
   constructor(private http: HttpClient) { }
 

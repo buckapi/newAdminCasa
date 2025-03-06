@@ -51,6 +51,8 @@ export class GlobalService {
   editingProduct = false;
   addingProperty = false;
   editingProperty = false;
+  addingImage = false;
+  editingImage = false;
   color: any = "#fff";
   nuevoColor: string; // Variable para almacenar el nombre del nuevo color
   newBrand: string;
@@ -117,28 +119,26 @@ export class GlobalService {
       collection: ""
   };
   propertysSelected: any[] = [];
-  
-  propertySelected: {
+  imagesSelected: any[] = [];
+  imageSelected: {
     id: string;
-    description: string;
-    files: any[];
-    title: string;
-    price: number,
-    services: any[];
-    status: string;
-    guests: number;
-    priceAditional: number;
+    name: string;
+    images: any[];
   } = {
     
     id: "",
-    description: "",
-    files: [],
-    title: "",
-    price: 0,
-    services: [],
-    status: "",
-    guests: 0,
-    priceAditional: 0
+    name: "",
+    images: [],
+  };
+  propertySelected: {
+    id: string;
+    name: string;
+    images: any[];
+  } = {
+    
+    id: "",
+    name: "",
+    images: [],
   };
   moduloSelected: { id: string; name: string; images: any[] } = {
     name: "Seleccione un modulo",
@@ -226,6 +226,7 @@ export class GlobalService {
     totalGallery: 0,
   };
   propertys: any[] = [];
+  imagesCasa:any[] = [];
   gallery: any[] = [];
   clientes: any[] = [];
   colors: any[] = [];
@@ -502,7 +503,7 @@ export class GlobalService {
       .pipe(map((data) => data));
   }
   getGallery(): Observable<any> {
-    const url_api = this.yeoman.origin.restUrl + "/api/collections/gallerys/records";
+    const url_api = this.yeoman.origin.restUrl + "/api/collections/casaGallery/records";
     return this.http.get<any>(url_api);
   }
   getPropertys(): Observable<any> {
