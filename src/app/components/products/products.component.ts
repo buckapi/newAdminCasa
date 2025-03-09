@@ -101,7 +101,7 @@ export class ProductsComponent {
 
     this.getAllCategories();
     this.getAllBrands();
-    this.getAllVideos();
+    this.getAllProducts();
     this.dropdownSettings = {
       singleSelection: false,
       idField: "id",
@@ -280,7 +280,7 @@ export class ProductsComponent {
   onSubmit() {
     // this.data.ref = (Math.floor(Math.random() * 10000000000000)).toString();
     this.data.files = this._butler.uploaderImages;
-    this.dataApiService.saveClient(this.data).subscribe((response) => {
+    this.dataApiService.saveProduct(this.data).subscribe((response) => {
       console.log(response);
       this.global.loadProducts();
       this._butler.uploaderImages = [];
@@ -316,10 +316,9 @@ export class ProductsComponent {
     });
   }
 
-  getAllVideos() {
-    this.dataApiService.getAllProducts().subscribe((response) => {
-      this.yeoman.products = response;
-      this.yeoman.products = this.yeoman.products.items;
+  getAllProducts() {
+    this.dataApiService.getAllProducts().subscribe((response: any[]) => {
+      this.global.productosSelected = response;
     });
   }
   onCategorySelect(category: any) {

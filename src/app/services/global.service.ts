@@ -393,12 +393,11 @@ productoSelected: {
   }
   conteoProducts() {
     let size = this.products.length;
-    let rubrosSize = this.rubros.length;
     let cont = 0;
-    for (let i = 0; i < rubrosSize; i++) {
+    for (let i = 0; i < size; i++) {
       cont = 0;
       for (let j = 0; j < size; j++) {
-        if (this.products[j].idCategory === this.rubros[i].id) cont = cont + 1;
+        if (this.products[j].id === this.products[i].id) cont = cont + 1;
       }
       this.quantitiesProductsSelected.push(cont);
       cont = 0;
@@ -424,17 +423,11 @@ productoSelected: {
       (data) => {
         this.products = data.items;
         this.totales.totalProducts = this.products.length;
-        this.productSelected = this.products[0]; // Asigna los registros obtenidos a la variable 'registros'
-        console.log(data);
-        let size = data.items.length;
-
-        this.conteoProducts();
-        // Puedes hacer lo que quieras con los datos recibidos
       },
       (error) => {
-        console.error(error); // Manejo de errores si la solicitud falla
-      }
-    );
+          console.error(error); // Manejo de errores si la solicitud falla
+        }
+      );
   }
   loadPropertys() {
     this.getPropertys().subscribe(

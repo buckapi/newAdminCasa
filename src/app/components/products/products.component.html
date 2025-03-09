@@ -48,7 +48,7 @@
                 </div>
             </div>
             <div class="row portfolio-wrapper col-md-8" [hidden]="global.editingProduct || global.addingProduct">
-                <div class="col-md-3 col-sm-6 grid-item " *ngFor="let producto of global.productosSelected; let i = index"
+                <div class="col-md-3 col-sm-6 grid-item " *ngFor="let producto of global.productSelected; let i = index"
                     style="cursor: pointer;" > 
                     <a class="" (click)="preview(producto)">
                         <div class="portfolio-item rounded shadow-dark card">

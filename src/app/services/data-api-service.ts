@@ -80,7 +80,7 @@ export class DataApiService {
 	  }
 	  
 	getAllProducts(){
-		const url_api = this.yeoman.origin.restUrl+'/api/collections/svbProducts/records';
+		const url_api = this.yeoman.origin.restUrl+'/api/collections/casaVideos/records';
 		return this.http.get(url_api);
 	}
 	
@@ -133,18 +133,13 @@ export class DataApiService {
 		.pipe(map(data => data));
 	}
 	saveProduct(product :ProductInterface){
-		const url_api=	this.yeoman.origin.restUrl+'/api/products';
-		return this.http
-		.post<ProductInterface>(url_api, product)
-		.pipe(map(data => data));
-	}
-
-	saveClient(client: ClientInterface) {
 		const url_api = this.yeoman.origin.restUrl + '/api/collections/videoGallery/records';
-		return this.http.post<ClientInterface>(url_api, client).pipe(
+		return this.http.post<ProductInterface>(url_api, product).pipe(
 		  map(data => data)
 		);
-	  }
+	}
+
+	
 	  /* saveProperty(property: PropertyInterface) {
 		const url_api = this.yeoman.origin.restUrl + '/api/collections/propertys/records';
 		return this.http.post<PropertyInterface>(url_api, property).pipe(
