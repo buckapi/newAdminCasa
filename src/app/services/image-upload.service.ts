@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ImageUploadService {
 
-  private apiUrl = 'https://db.camiwa.com:8092/api/collections/imagesCasa/records';
+  private apiUrl = 'https://db.camiwa.com:8092/api/collections/files/records';
 
   constructor(private http: HttpClient) { }
 
@@ -31,3 +31,6 @@ export class ImageUploadService {
     return this.http.post<any>(this.apiUrl, formData);
   }
 }
+
+
+

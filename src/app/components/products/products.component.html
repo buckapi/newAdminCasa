@@ -1,13 +1,13 @@
 <section id="products" [hidden]="virtualRouter.routerActive!=='products'">
     <div class="container">
-        <h2 class="section-title wow fadeInUp" [hidden]="isEditing || global.addingProduct">Productos
+        <h2 class="section-title wow fadeInUp" [hidden]="isEditing || global.addingProduct">Videos
             <span style="color: #FF4C60;" class="icon icon-plus iconB" (click)="add()"></span>
         </h2>
-        <h2 class="section-title wow fadeInUp" [hidden]="!global.addingProduct">Agregar producto
+        <h2 class="section-title wow fadeInUp" [hidden]="!global.addingProduct">Agregar video
         </h2>
         <div class="spacer" data-height="60" [hidden]="global.addingProduct || editing"></div>
         <span> </span>
-        <ul class="portfolio-filter list-inline wow fadeInUp" [hidden]="global.editingProduct || global.addingProduct">
+       <!--  <ul class="portfolio-filter list-inline wow fadeInUp" [hidden]="global.editingProduct || global.addingProduct">
             <li [hidden]="global.rubroSelectedBoolean" class="list-inline-item" style="color: #FF4C60;">Todos</li>
             <li [hidden]="!global.rubroSelectedBoolean" class="list-inline-item" (click)="global.showAllRubros()">Todos
             </li>
@@ -18,13 +18,13 @@
             }">
                 {{category.name}}
             </li>
-        </ul>
+        </ul> -->
         <div class="row">
             <div class="col-md-4 " [hidden]="global.editingProduct || global.addingProduct">
                 <div class="contact-info">
                     <h3 class="wow fadeInUp" style="padding-top: 45px;">{{global.productSelected.name}}
                     </h3>
-                    <div class="floating-content" [hidden]="global.productSelected.images[0]==undefined">
+                    <div class="floating-content" [hidden]="global.productSelected.files[0]==undefined">
                         <div style="text-align: right;">
                             <span style="font-weight: 1000; font-size: 15px; color: #5e4cff;">
                                 <button type="submit" name="submit" id="submit" value="Submit"
@@ -42,20 +42,20 @@
 
                     </div>
                     <div class="thumb">
-                        <img src="{{global.productSelected.images[0]}}" alt="" />
+                        <img src="{{global.productSelected.files[0]}}" alt="" />
                         <div class="mask"></div>
                     </div>
                 </div>
             </div>
             <div class="row portfolio-wrapper col-md-8" [hidden]="global.editingProduct || global.addingProduct">
-                <div class="col-md-3 col-sm-6 grid-item " *ngFor="let client of global.clientesSelected; let i = index"
+                <div class="col-md-3 col-sm-6 grid-item " *ngFor="let producto of global.productosSelected; let i = index"
                     style="cursor: pointer;" > 
-                    <a class="" (click)="preview(client)">
+                    <a class="" (click)="preview(producto)">
                         <div class="portfolio-item rounded shadow-dark card">
                             <div class="thumb">
-                                <img src="{{client.images[0]}}" alt="" />
+                                <img src="{{producto.files[0]}}" alt="" />
                             </div>
-                            <span>{{client.name}}</span>
+                            <span>{{producto.name}}</span>
                         </div>
                     </a>
                 </div>
@@ -82,7 +82,7 @@
                                             </div>
                                         </div>
                                         <div  style="display: ruby; margin-top: 20px;padding: 2%;" [hidden]="!global.editingProduct">
-                                            <div class="thumb" *ngFor="let image of data.images" style="margin-right: 5px; margin-bottom:10px; position: relative;" class="image-container"
+                                            <div class="thumb" *ngFor="let image of data.files" style="margin-right: 5px; margin-bottom:10px; position: relative;" class="image-container"
                                                 (mouseenter)="showDeleteButton = true" (mouseleave)="showDeleteButton = false">
                                                 <img src="{{image}}" style="max-width: 150px; border-radius: 10px; border: 1px solid #ccc;" class="image">
                                                 <button *ngIf="showDeleteButton" class="delete-button" (click)="deleteImage(image)" >
@@ -108,14 +108,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="description">Descripción o inspiración</label>
                                     <textarea class="form-control" placeholder="descripción"
                                         [(ngModel)]="data.description" name="description del producto" required
                                         [ngModelOptions]="{standalone: true}"></textarea>
-                                </div>
+                                </div> -->
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <!-- <div class="col-md-4">
                                     
                                         <div class="form-group">
                                             
@@ -206,7 +206,7 @@
                                               >
                                             </ng-multiselect-dropdown>
                                           </div>
-                                    </div>
+                                    </div> -->
                                     <!-- <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="category">Formato
@@ -255,7 +255,7 @@
                             <button class="btn btn-outline-dark" id="closeButton" (click)="cancelarUpdate()"  style=" margin-right: 10px;">Cancelar</button>
                             <button [hidden]="global.editingProduct || _butler.uploaderImages[0]==undefined" class="btn btn-default" id="closeButton" (click)="onSubmit()"
                                 style=" margin-right: 10px;">Guardar</button>
-                            <button [hidden]="global.addingProduct || data.images[0]==undefined" class="btn btn-default" id="closeButton" (click)="updateProduct()"
+                            <button [hidden]="global.addingProduct || data.files[0]==undefined" class="btn btn-default" id="closeButton" (click)="updateProduct()"
                                 style=" margin-right: 10px;">Guardar</button>
                         </div>
                     </form>

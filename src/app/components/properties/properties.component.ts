@@ -40,6 +40,7 @@ export class PropertiesComponent {
   categorySeted: boolean = false;
   isEditing = false;
   propertys$: any = {};
+  gallerys$: any = {};
   public captions: UploaderCaptions = {
     dropzone: {
       title: "Imágenes del producto",
@@ -58,7 +59,7 @@ export class PropertiesComponent {
   data = {
     id: "",
     name: "",
-    images: [] as string[]
+    files: [] as string[]
   };
 
   // adapter = new CustomFilePickerAdapter(this.http, this._butler);
@@ -78,7 +79,6 @@ export class PropertiesComponent {
     public yeoman: Yeoman,
     public dataApiService: DataApiService
   ) {
-
     this.getAllProperties();
     this.getAllCategories();
     this.getAllBrands();
@@ -97,21 +97,21 @@ export class PropertiesComponent {
     this.global.propertySelected = {
       id:"",
       name: "",
-      images: [] as string[],
+      files: [] as string[],
     };
     this.data = {
       id:"",
       name: "",
-      images: [] as string[]
+      files: [] as string[]
     };
 
-    this.global.editingProperty = false;
-    this.global.addingProperty = true;
+    this.global.editingImage = false;
+    this.global.addingImage = true;
   }
   edit(property: any) {
     this.data = this.global.propertySelected;
-    this.global.editingProperty = true;
-    this.global.addingProperty = false;
+    this.global.editingImage = true;
+    this.global.addingImage = false;
   }
 
   openModal() {
@@ -133,18 +133,18 @@ export class PropertiesComponent {
   }
 
   cancelarUpdate() {
-    this.global.editingProperty = false;
-    this.global.addingProperty = false;
+    this.global.editingImage = false;
+    this.global.addingImage = false;
     this.data = {
       id: "",
       name: "",
-      images: [] as string[]
+      files: [] as string[]
     };
   }
   
-  preview(property: any) {
-    this.global.propertySelected = property;
-    this.global.productPreview = true;
+  preview(gallery: any) {
+    this.global.gallerySelected = gallery;
+    this.global.galleryPreview = true;
   }
   beforeDelete() {
     Swal.fire({
@@ -153,25 +153,25 @@ export class PropertiesComponent {
       icon: "warning",
       showCancelButton: true,
       text: "esta acción no se podrá revertir!",
-      title: "Seguro deseas borrar este producto?",
+      title: "Seguro deseas borrar esta galería?",
     }).then((result) => {
       if (result.value) {
-        this.deleteProperty();
-        Swal.fire("Borrada!", "La autoparte ha sido borrada.", "success");
+        this.deleteGallery();
+        Swal.fire("Borrada!", "Galería borrada.", "success");
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire("Cancelado", "", "error");
       }
     });
   }
 
-  updateProperty() {
-    this.data.images =
+  updateGallery() {
+    console.log("Imágenes a actualizar:", this._butler.uploaderImages); // Agregar esta línea
+    this.data.files =
       this._butler.uploaderImages.length > 0
         ? this._butler.uploaderImages
-        : this.global.imageSelected.images;
-
+        : this.global.gallerySelected.files;
     this.dataApiService
-      .galleryUpdate(this.data, this.global.imageSelected.id)
+      .galleryUpdate(this.data, this.global.gallerySelected.id)
       .subscribe((response) => {
         console.log(response);
         this.global.loadGallery();
@@ -180,7 +180,7 @@ export class PropertiesComponent {
         this.data = {
           id:"",
           name: "",
-          images: [] as string[]
+          files: [] as string[]
         };
 
         this._butler.uploaderImages = [];
@@ -195,27 +195,27 @@ export class PropertiesComponent {
           });
       });
   }
-  deleteProperty() {
+  deleteGallery() {
     this.global
-      .deleteProperty(this.global.propertySelected.id)
+      .deleteGallery(this.global.gallerySelected.id)
       .subscribe((response) => {
-        this.global.rubroSelected = {
-          name: "Seleccionar",
-          images: [],
+        this.global.gallerySelected = {
           id: "",
-          ref: "",
+          name: "Seleccionar",
+          files: [],
         };
         this.global.loadGallery();
 
-        this.global.imageSelected = {
+        this.global.gallerySelected = {
           id:"",
           name: "",
-          images: [] as string[]
+          files: [] as string[]
         };
       });
   }
   onSubmit() {
-    this.data.images = this._butler.uploaderImages;
+    console.log("Imágenes a guardar:", this._butler.uploaderImages); // Agregar esta línea
+    this.data.files = this._butler.uploaderImages;
     this.dataApiService.saveImages(this.data).subscribe((response) => {
       console.log(response);
       this.global.loadGallery();
@@ -223,11 +223,11 @@ export class PropertiesComponent {
       this.data = {
         id:"",
         name: "",
-        images: [] as string[],
+        files: [] as string[],
       };
 
       this.global.editingImage = false;
-      Swal.fire("Bien...", "Autoparte agregada satisfactoriamente!", "success");
+      Swal.fire("Bien...", "Imagenes agregada satisfactoriamente!", "success");
       this.global.editingImage = false;
       this.global.addingImage = false;
       this.global.loadGallery();
@@ -256,6 +256,7 @@ export class PropertiesComponent {
       this.global.imagesSelected = response;
     });
   }
+  
   
   onCategorySelect(category: any) {
     // this.data.category = "c" + category.id;

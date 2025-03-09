@@ -1,13 +1,13 @@
 <section id="properties" [hidden]="virtualRouter.routerActive!=='properties'">
     <div class="container">
-        <h2 class="section-title wow fadeInUp" [hidden]="isEditing || global.addingImage">Galeria imagenes
+        <h2 class="section-name wow fadeInUp" [hidden]="isEditing || global.addingImage">Galeria
             <span style="color: #FF4C60;" class="icon icon-plus iconB" (click)="add()"></span>
         </h2>
-        <h2 class="section-title wow fadeInUp" [hidden]="!global.addingImage">Agregar imagenes
+        <h2 class="section-name wow fadeInUp" [hidden]="!global.addingImage">Agregar imagen
         </h2>
         <div class="spacer" data-height="60" [hidden]="global.addingImage || editing"></div>
         <span> </span>
-        <!-- <ul class="portfolio-filter list-inline wow fadeInUp" [hidden]="global.editingProperty || global.addingProperty">
+        <!-- <ul class="portfolio-filter list-inline wow fadeInUp" [hidden]="global.editingImage || global.addingImage">
             <li [hidden]="global.rubroSelectedBoolean" class="list-inline-item" style="color: #FF4C60;">Todos</li>
             <li [hidden]="!global.rubroSelectedBoolean" class="list-inline-item" (click)="global.showAllRubros()">Todos
             </li>
@@ -22,13 +22,13 @@
         <div class="row">
             <div class="col-md-4 " [hidden]="global.editingImage || global.addingImage">
                 <div class="contact-info">
-                    <h3 class="wow fadeInUp" style="padding-top: 45px;">{{global.imageSelected.name}}
+                    <h3 class="wow fadeInUp" style="padding-top: 45px;">{{global.gallerySelected.name}}
                     </h3>
-                    <div class="floating-content" [hidden]="global.imageSelected.images[0]==undefined">
+                    <div class="floating-content" [hidden]="global.gallerySelected.files[0]==undefined">
                         <div style="text-align: right;">
                             <span style="font-weight: 1000; font-size: 15px; color: #5e4cff;">
                                 <button type="submit" name="submit" id="submit" value="Submit"
-                                    class="btn btn-outline-dark btn-xs" (click)="edit(global.imageSelected)">
+                                    class="btn btn-outline-dark btn-xs" (click)="edit(global.gallerySelected)">
                                     <span class="icon icon-pencil"></span>
                                 </button>
                             </span>
@@ -42,20 +42,20 @@
 
                     </div>
                     <div class="thumb">
-                        <img src="{{global.imageSelected.images[0]}}" alt="" />
+                        <img src="{{global.gallerySelected.files[0]}}" alt="" />
                         <div class="mask"></div>
                     </div>
                 </div>
             </div>
             <div class="row portfolio-wrapper col-md-8" [hidden]="global.editingImage || global.addingImage">
-                <div class="col-md-3 col-sm-6 grid-item " *ngFor="let image of global.imagesCasa; let i = index"
+                <div class="col-md-3 col-sm-6 grid-item " *ngFor="let gallery of global.gallery; let i = index"
                     style="cursor: pointer;" > 
-                    <a class="" (click)="preview(image)">
+                    <a class="" (click)="preview(gallery)">
                         <div class="portfolio-item rounded shadow-dark card">
                             <div class="thumb">
-                                <img src="{{image.images[0]}}" alt="" />
+                                <img src="{{gallery.files[0]}}" alt="" />
                             </div>
-                            <span>{{image.name}}</span>
+                            <span>{{gallery.name}}</span>
                         </div>
                     </a>
                 </div>
@@ -68,11 +68,7 @@
                             <div class="col-md-4">
                                 <div class="">
                                     <div class="">
-                                        <!-- <button (click)="compressFiles()">Upload and compress Image</button> -->
-                                        <!-- <img [src]="imgResultBeforeCompression" *ngIf="imgResultBeforeCompression" /> -->
-                                        <!-- <img [src]="imgResultAfterCompression" *ngIf="imgResultAfterCompression" /> -->
-                                 
-                                         <ngx-awesome-uploader [adapter]="adapter" [captions]="captions"
+                                        <ngx-awesome-uploader [adapter]="adapter" [captions]="captions"
                                             [showPreviewContainer]="false">
                                         </ngx-awesome-uploader> 
                                         <div style="display: ruby; margin-top: 20px;padding: 2%;">
@@ -81,8 +77,8 @@
                                                     style="max-width: 150px; border-radius: 10px; border: 1px solid #ccc;">
                                             </div>
                                         </div>
-                                        <div  style="display: ruby; margin-top: 20px;padding: 2%;" [hidden]="!global.editingProperty">
-                                            <div class="thumb" *ngFor="let image of data.images" style="margin-right: 5px; margin-bottom:10px; position: relative;" class="image-container"
+                                        <div  style="display: ruby; margin-top: 20px;padding: 2%;" [hidden]="!global.editingImage">
+                                            <div class="thumb" *ngFor="let image of data.files" style="margin-right: 5px; margin-bottom:10px; position: relative;" class="image-container"
                                                 (mouseenter)="showDeleteButton = true" (mouseleave)="showDeleteButton = false">
                                                 <img src="{{image}}" style="max-width: 150px; border-radius: 10px; border: 1px solid #ccc;" class="image">
                                                 <button *ngIf="showDeleteButton" class="delete-button" (click)="deleteImage(image)" >
@@ -113,10 +109,10 @@
                                     <textarea class="form-control" placeholder="descripción"
                                         [(ngModel)]="data.description" name="description del producto" required
                                         [ngModelOptions]="{standalone: true}"></textarea>
-                                </div>
+                                </div> -->
                                 <div class="row">
                                   
-                                    <div class="col-md-4">
+                                    <!-- <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="event-price">Precio</label>
                                             <input type="number"  class="form-control" placeholder="precio" type="number"
@@ -139,8 +135,8 @@
                                                 [(ngModel)]="data.priceAditional" name="priceAditional" required
                                                 [ngModelOptions]="{standalone: true}">
                                         </div>
-                                    </div>
-                                      <div class="col-md-4">                               
+                                    </div> -->
+                                     <!-- <div class="col-md-4">                               
                                         <div class="form-group">
                                             <label for="category">Categoría o estilo
                                             <span *ngIf="showColors" style="color: #FF4C60; width: 20px; height: 20px; font-size: 20px; margin-left: 5px; float: right; margin-bottom: 6px;" class="icon icon-plus iconB" (click)="openAddcategory()"></span>
@@ -184,9 +180,9 @@
                                               >
                                             </ng-multiselect-dropdown>
                                           </div>
-                                    </div> 
+                                    </div> -->
 
-                                </div> -->
+                                </div>
                                 
                                 <div class="row pb-20">
                                     <div class="col-md-8">
@@ -218,7 +214,7 @@
                             <button class="btn btn-outline-dark" id="closeButton" (click)="cancelarUpdate()"  style=" margin-right: 10px;">Cancelar</button>
                             <button [hidden]="global.editingImage || _butler.uploaderImages[0]==undefined" class="btn btn-default" id="closeButton" (click)="onSubmit()"
                                 style=" margin-right: 10px;">Guardar</button>
-                            <button [hidden]="global.addingImage || data.images[0]==undefined" class="btn btn-default" id="closeButton" (click)="updateProperty()"
+                            <button [hidden]="global.addingImage || data.files[0]==undefined" class="btn btn-default" id="closeButton" (click)="updateGallery()"
                                 style=" margin-right: 10px;">Guardar</button>
                         </div>
                     </form>

@@ -16,6 +16,7 @@ import PocketBase from "pocketbase";
 export interface CategoryInterface {}
 export interface PropertyInterface {}
 export interface ProductInterface {}
+export interface GalleryInterface {}
 interface Config {
   name: string;
   logo: string;
@@ -75,70 +76,46 @@ export class GlobalService {
   productSelected: {
     id: string;
     name: string;
-    images: any[];
-    categories: any[];
-    category: any;
-    stockLevel: number;
-    stockMin: number;
-    price: number;
-    brand: any[];
-    dimensions: any[];
-    formats:any[];
-    /* type: any[]; */
-    colors: any[];
-    /* model: string; */
-    description: string;
-    status: string;
-    weight: number;
-      technique: string;
-      material: string;
-      yearCreation: string;
-      collection: string;
+    files: any[];
   } = {
     
     id: "",
     name: "",
-    images: [],
-    categories: [],
-    category: null,
-    stockLevel: 0,
-    stockMin: 0,
-    price: 0,
-    brand: [],
-    dimensions: [],
-    formats:[],
-    /* type: [], */
-    colors: [],
-    /* model: "", */
-    description: "",
-    status: "",
-    weight: 0,
-      technique: "",
-      material: "",
-      yearCreation: "",
-      collection: ""
+    files: []
   };
   propertysSelected: any[] = [];
   imagesSelected: any[] = [];
-  imageSelected: {
+  galleriesSelected: any[] = [];
+  productosSelected: any[] = [];
+  gallerySelected: {
     id: string;
     name: string;
-    images: any[];
+    files: any[];
   } = {
     
     id: "",
     name: "",
-    images: [],
+    files: [],
   };
   propertySelected: {
     id: string;
     name: string;
-    images: any[];
+    files: any[];
   } = {
     
     id: "",
     name: "",
-    images: [],
+    files: [],
+  };
+productoSelected: {
+    id: string;
+    name: string;
+    files: any[];
+  } = {
+    
+    id: "",
+    name: "",
+    files: [],
   };
   moduloSelected: { id: string; name: string; images: any[] } = {
     name: "Seleccione un modulo",
@@ -149,9 +126,9 @@ export class GlobalService {
     name: "Seleccionar",
     images: [],
   };
-  rubroSelected: { id: string; name: string; images: any[]; ref: string } = {
+  rubroSelected: { id: string; name: string; files: any[]; ref: string } = {
     name: "Seleccionar",
-    images: [],
+    files: [],
     id: "",
     ref: "",
   };
@@ -224,6 +201,7 @@ export class GlobalService {
     totalProperties: 0,
     totalProducts: 0,
     totalGallery: 0,
+    totalLinks: 0,
   };
   propertys: any[] = [];
   imagesCasa:any[] = [];
@@ -352,7 +330,12 @@ export class GlobalService {
 
     return this.http.delete<PropertyInterface>(url_api).pipe(map((data) => data));
   }
-  
+  deleteGallery(id: string) {
+    // const token = this.AuthRESTService.getToken
+    const url_api = `${this.yeoman.origin.restUrl}/api/collections/casaGallery/records/${id}`;
+
+    return this.http.delete<GalleryInterface>(url_api).pipe(map((data) => data));
+  }
 
   
   showAllRubros() {
@@ -382,25 +365,7 @@ export class GlobalService {
     this.productSelected = {
       id: "",
     name: "",
-    images: [],
-    categories: [],
-    category: null,
-    stockLevel: 0,
-    stockMin: 0,
-    price: 0,
-    brand: [],
-    dimensions: [],
-    formats:[],
-    /* type: [], */
-    colors: [],
-    /* model: "", */
-    description: "",
-    status: "",
-    weight: 0,
-      technique: "",
-      material: "",
-      yearCreation: "",
-      collection: ""
+    files: []
     };
     this.rubroSelectedBoolean = true;
     this.clientesSelected = [];
@@ -534,5 +499,7 @@ export class GlobalService {
     this.editingProduct=false;
     this.addingProperty=false;
     this.editingProperty=false;
+    this.addingImage=false;
+    this.editingImage=false;
   }
 }

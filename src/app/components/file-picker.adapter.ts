@@ -13,7 +13,7 @@ import { GlobalService } from "@app/services/global.service";
 
 export class CustomFilePickerAdapter extends FilePickerAdapter {
   private uploadUrl =
-    "https://db.camiwa.com:8092/api/collections/images/records";
+    "https://db.camiwa.com:8092/api/collections/files/records";
 
   constructor(
     private http: HttpClient,

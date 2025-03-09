@@ -140,7 +140,7 @@ export class DataApiService {
 	}
 
 	saveClient(client: ClientInterface) {
-		const url_api = this.yeoman.origin.restUrl + '/api/collections/products/records';
+		const url_api = this.yeoman.origin.restUrl + '/api/collections/videoGallery/records';
 		return this.http.post<ClientInterface>(url_api, client).pipe(
 		  map(data => data)
 		);
@@ -153,7 +153,7 @@ export class DataApiService {
 	  } */
 
 	  saveImages(property: PropertyInterface) {
-		const url_api = this.yeoman.origin.restUrl + '/api/collections/imagesCasa/records';
+		const url_api = this.yeoman.origin.restUrl + '/api/collections/casaGallery/records';
 		return this.http.post<PropertyInterface>(url_api, property).pipe(
 		  map(data => data)
 		);

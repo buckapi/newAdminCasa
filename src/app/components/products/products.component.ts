@@ -58,17 +58,15 @@ export class ProductsComponent {
   };
   data = {
     id: "",
-    brand: [] as any[],
+   /*  brand: [] as any[],
     formats: [] as any[],
     dimensions: [] as any[],
     category: "",
     categories: [] as any[],
     colors: [] as any[],
-    /* type: [] as any[], */
+     type: [] as any[],
     description: "",
     collection: "",
-    images: [] as string[],
-    name: "",
     price: 0,
     weight: 0,
     technique: "",
@@ -76,7 +74,10 @@ export class ProductsComponent {
     status:"",
     yearCreation: "",
     stockLevel: 0,
-    stockMin: 0,
+    stockMin: 0, */
+    files: [] as string[],
+    name: "",
+    
   };
 
   // adapter = new CustomFilePickerAdapter(this.http, this._butler);
@@ -100,6 +101,7 @@ export class ProductsComponent {
 
     this.getAllCategories();
     this.getAllBrands();
+    this.getAllVideos();
     this.dropdownSettings = {
       singleSelection: false,
       idField: "id",
@@ -125,7 +127,7 @@ export class ProductsComponent {
   // }
 
 
-  toggleColor(color: any) {
+  /* toggleColor(color: any) {
     const index = this.data.colors.findIndex((c) => c.hex === color.hex);
     if (index === -1) {
       // Si el color no está en la lista, lo agregamos
@@ -147,52 +149,18 @@ export class ProductsComponent {
 
   isColorSelected(color: any): boolean {
     return this.data.colors.some((c) => c.hex === color.hex);
-  }
+  } */
 
   add() {
     this.global.productSelected = {
       id:"",
-      brand: [] as any[],
-      formats: [] as any[],
-      dimensions: [] as any[],
-      category: "",
-      categories: [] as any[],
-      colors: [] as any[],
-      description: "",
-      collection: "",
-      images: [] as string[],
-      /* type: [] as any[], */
+      files: [] as string[],
       name: "",
-      price: 0,
-      weight: 0,
-      technique: "",
-      material: "",
-      status:"",
-      yearCreation: "",
-      stockLevel: 0,
-      stockMin: 0,
     };
     this.data = {
       id:"",
-      brand: [] as any[],
-      formats: [] as any[],
-      dimensions: [] as any[],
-      category: "",
-      categories: [] as any[],
-      colors: [] as any[],
-      /* type: [] as any[], */
-      description: "",
-      collection: "",
-      images: [] as string[],
-      name: "",
-      price: 0,
-      weight: 0,
-      technique: "",
-      material: "",
-      status:"",
-      yearCreation: "",
-      stockLevel: 0,
-      stockMin: 0,
+      files: [] as string[],
+    name: "",
     };
 
     this.global.editingProduct = false;
@@ -227,48 +195,15 @@ export class ProductsComponent {
     this.global.addingProduct = false;
     this.data = {
       id:"",
-      brand: [] as any[],
-      formats: [] as any[],
-      dimensions: [] as any[],
-      category: "",
-      categories: [] as any[],
-      colors: [] as any[],
-      /* type: [] as any[], */
-      description: "",
-      collection: "",
-      images: [] as string[],
-      name: "",
-      price: 0,
-      weight: 0,
-      technique: "",
-      material: "",
-      yearCreation: "",
-      status:"",
-      stockLevel: 0,
-      stockMin: 0,
+      files: [] as string[],
+    name: "",
 
     };
 
     this.global.productSelected = {
       id:"",
-      brand: [],
-      formats: [],
-      dimensions: [],
-      category: null,
-      categories: [],
-      colors: [],
-      description: "",
-      collection: "",
-      images: [],
-      name: "",
-      price: 0,
-      weight: 0,
-      technique: "",
-      material: "",
-      status:"",
-      yearCreation: "",
-      stockLevel: 0,
-      stockMin: 0,
+      files: [] as string[],
+    name: "",
     };
   }
   preview(client: any) {
@@ -286,7 +221,7 @@ export class ProductsComponent {
     }).then((result) => {
       if (result.value) {
         this.deleteProduct();
-        Swal.fire("Borrada!", "La autoparte ha sido borrada.", "success");
+        Swal.fire("Borrada!", "success");
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire("Cancelado", "", "error");
       }
@@ -294,10 +229,10 @@ export class ProductsComponent {
   }
 
   updateProduct() {
-    this.data.images =
+    this.data.files =
       this._butler.uploaderImages.length > 0
         ? this._butler.uploaderImages
-        : this.global.productSelected.images;
+        : this.global.productSelected.files;
 
     this.dataApiService
       .productUpdate(this.data, this.global.productSelected.id)
@@ -308,24 +243,8 @@ export class ProductsComponent {
         this.virtualRouter.routerActive = "products";
         this.data = {
           id:"",
-          brand: [] as any[],
-          formats: [] as any[],
-          dimensions: [] as any[],
-          category: "",
-          categories: [] as any[],
-          colors: [] as any[],
-          description: "",
-          collection: "",
-          images: [] as string[],
+          files: [] as string[],
           name: "",
-          price: 0,
-          weight: 0,
-          technique: "",
-          material: "",
-          status:"",
-          yearCreation: "",
-          stockLevel: 0,
-          stockMin: 0,
         };
 
         this._butler.uploaderImages = [];
@@ -334,7 +253,7 @@ export class ProductsComponent {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "Producto Actualizado",
+            title: "Actualizado",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -344,69 +263,35 @@ export class ProductsComponent {
     this.global
       .deleteProduct(this.global.productSelected.id)
       .subscribe((response) => {
-        this.global.rubroSelected = {
+        this.global.productSelected = {
           name: "Seleccionar",
-          images: [],
+          files: [],
           id: "",
-          ref: "",
         };
         this.global.loadProducts();
 
         this.global.productSelected = {
           id:"",
-          brand: [],
-          formats: [],
-          dimensions: [],
-          category: null,
-          categories: [],
-          colors: [],
-          description: "",
-          collection: "",
-          images: [],
-          name: "",
-          price: 0,
-          weight: 0,
-          technique: "",
-          material: "",
-          status:"",
-          yearCreation: "",
-          stockLevel: 0,
-          stockMin: 0,
+          files: [] as string[],
+          name: ""
         };
       });
   }
   onSubmit() {
     // this.data.ref = (Math.floor(Math.random() * 10000000000000)).toString();
-    this.data.images = this._butler.uploaderImages;
-    this.data.status = "active";
+    this.data.files = this._butler.uploaderImages;
     this.dataApiService.saveClient(this.data).subscribe((response) => {
       console.log(response);
       this.global.loadProducts();
       this._butler.uploaderImages = [];
       this.data = {
         id:"",
-        brand: [] as any[],
-          formats: [] as any[],
-          dimensions: [] as any[],
-          category: "",
-          categories: [] as any[],
-          colors: [] as any[],
-          description: "",
-          collection: "",
-          images: [] as string[],
-          name: "",
-          price: 0,
-          weight: 0,
-          technique: "",
-          material: "",
-          status:"",
-          yearCreation: "",
-          stockLevel: 0,
-          stockMin: 0,
+        files: [] as string[],
+        name: "",
       };
 
       this.global.editingProduct = false;
-      Swal.fire("Bien...", "Autoparte agregada satisfactoriamente!", "success");
+      Swal.fire("Bien...", "Video agregado satisfactoriamente!", "success");
       this.global.editingProduct = false;
       this.global.addingProduct = false;
       this.global.loadProducts();
@@ -431,6 +316,12 @@ export class ProductsComponent {
     });
   }
 
+  getAllVideos() {
+    this.dataApiService.getAllProducts().subscribe((response) => {
+      this.yeoman.products = response;
+      this.yeoman.products = this.yeoman.products.items;
+    });
+  }
   onCategorySelect(category: any) {
     // this.data.category = "c" + category.id;
     console.log(category.id);
